@@ -19,7 +19,7 @@ func (p *PaperWallet) Image() (image.Image, error) {
 	if err != nil {
 		return nil, fmt.Errorf("cannot make QRCodde of address: %w", err)
 	}
-	qrKey, err := graphic.QRCode(p.Address)
+	qrKey, err := graphic.QRCode(p.WIF)
 	if err != nil {
 		return nil, fmt.Errorf("cannot make QRCodde of key: %w", err)
 	}
