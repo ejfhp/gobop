@@ -33,6 +33,12 @@ func AddText(canvasImage image.Image, text string, textFontName string, textColo
 }
 
 func AddImage(canvasImage image.Image, srcImage image.Image, scale, rotationdeg, x, y float64) image.Image {
+	if canvasImage == nil {
+		fmt.Printf("canvas image is nil")
+	}
+	if srcImage == nil {
+		fmt.Printf("canvas srcImage is nil")
+	}
 	c := gg.NewContextForImage(canvasImage)
 	xd := x*math.Cos(rotationdeg*toRadians) - y*math.Sin(rotationdeg*toRadians)
 	yd := x*math.Sin(rotationdeg*toRadians) + y*math.Cos(rotationdeg*toRadians)

@@ -4,19 +4,23 @@ import (
 	"fmt"
 	"os"
 
-	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/layout"
+	"github.com/ejfhp/gobop/lib/bitcoin"
 )
-
-var mainWindow fyne.Window
 
 func main() {
 	a := app.New()
 	a.Settings().SetTheme(&bopTheme{})
-	mainWindow = a.NewWindow("Hello Person")
-	paperWalletPanel := newPaperWalletPanel()
+	mainWindow := a.NewWindow("Hello Person")
+	paperWalletPanel := newPaperWalletPanel(mainWindow)
+	k, err := bitcoin.WIF()
+	if err != nil {
+		fmt.Printf("cannot generate bitcoin key: %v\n", err)
+		os.Exit(1)
+	}
+	paperWalletPanel.setBitcoinKey(k)
 	paperPanel, err := paperWalletPanel.makePanel()
 	if err != nil {
 		fmt.Printf("cannot build default image panel: %v\n", err)
